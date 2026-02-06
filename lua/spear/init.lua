@@ -14,8 +14,9 @@ local function ensure_data_dir()
 	end
 end
 
+---@param opts? SpearConfig
 function M.setup(opts)
-	config.setup(opts)
+	config.setup(opts or {})
 	ensure_data_dir()
 
 	if config.options.prune_missing then
