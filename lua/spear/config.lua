@@ -1,10 +1,12 @@
 local M = {}
 
----@type SpearConfig
+---@class SpearConfig
 M.defaults = {
 	save_path = vim.fn.stdpath("data") .. "/spear.list",
 	prune_missing = false,
+	---@class SpearUIConfig
 	ui = {
+		---@type "rounded" | "double" | "single" | "shadow"
 		border = "rounded",
 		width_ratio = 0.5,
 		height_ratio = 0.2,
