@@ -44,6 +44,10 @@ function M.toggle(lines, on_save)
 	vim.bo[buf_nr].bufhidden = "wipe"
 	vim.bo[buf_nr].filetype = "spear"
 
+	-- Show line numbers starting from 1
+	vim.api.nvim_buf_set_option(buf_nr, "number", true)
+	vim.api.nvim_buf_set_option(buf_nr, "relativenumber", false)
+
 	-- Callback to save changes
 	local function save_changes()
 		if vim.api.nvim_buf_is_valid(buf_nr) then
