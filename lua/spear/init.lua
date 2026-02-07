@@ -32,7 +32,7 @@ function M.setup(opts)
 		end
 		if changed then
 			M.save_list(valid_lines)
-			vim.notify("Spear: Pruned missing files from list", vim.log.levels.INFO)
+			vim.notify("[[Spear]] Pruned missing files from list", vim.log.levels.INFO)
 		end
 	end
 end
@@ -58,7 +58,7 @@ function M.save_list(lines)
 	local path = get_data_path()
 	local f = io.open(path, "w")
 	if not f then
-		vim.notify("Spear: Could not open file for writing at " .. path, vim.log.levels.ERROR)
+		vim.notify("[[Spear]] Could not open file for writing at " .. path, vim.log.levels.ERROR)
 		return
 	end
 	for _, line in ipairs(lines) do
@@ -77,7 +77,7 @@ function M.add_file()
 
 	-- Don't add special buffers (terminals, quickfix, etc)
 	if vim.bo.buftype ~= "" then
-		vim.notify("Spear: Cannot add a special buffer", vim.log.levels.WARN)
+		vim.notify("[[Spear]] Cannot add a special buffer", vim.log.levels.WARN)
 		return
 	end
 
@@ -86,14 +86,14 @@ function M.add_file()
 	-- Check if already exists
 	for _, line in ipairs(lines) do
 		if line == file_path then
-			vim.notify("Spear: File already added", vim.log.levels.INFO)
+			vim.notify("[[Spear]] File already added", vim.log.levels.INFO)
 			return
 		end
 	end
 
 	table.insert(lines, file_path)
 	M.save_list(lines)
-	vim.notify("Spear: Added " .. file_path, vim.log.levels.INFO)
+	vim.notify("[[Spear]] Added " .. file_path, vim.log.levels.INFO)
 end
 
 function M.toggle()
@@ -104,12 +104,12 @@ end
 
 function M.open_file(index)
 	if type(index) ~= "number" then
-		vim.notify("Spear: Index must be a number", vim.log.levels.ERROR)
+		vim.notify("[[Spear]] Index must be a number", vim.log.levels.ERROR)
 		return
 	end
 
 	if index < 1 or index > 9 then
-		vim.notify("Spear: Only rows 1-9 are allowed", vim.log.levels.WARN)
+		vim.notify("[[Spear]] Only rows 1-9 are allowed", vim.log.levels.WARN)
 		return
 	end
 
@@ -121,10 +121,10 @@ function M.open_file(index)
 		if vim.fn.filereadable(path) == 1 then
 			vim.cmd("edit " .. path)
 		else
-			vim.notify("Spear: File not found at " .. path, vim.log.levels.WARN)
+			vim.notify("[[Spear]] File not found at " .. path, vim.log.levels.WARN)
 		end
 	else
-		vim.notify("Spear: No file specificed at row " .. index, vim.log.levels.INFO)
+		vim.notify("[[Spear]] No file specificed at row " .. index, vim.log.levels.INFO)
 	end
 end
 
