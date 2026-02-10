@@ -119,6 +119,11 @@ function M.open_file(index)
 	if path and path ~= "" then
 		-- Check if file exists
 		if vim.fn.filereadable(path) == 1 then
+			-- Check if current buffer is already the file
+			local current_path = vim.api.nvim_buf_get_name(0)
+			if vim.loop.fs_realpath(current_path) == vim.loop.fs_realpath(path) then
+				return -- Do nothing if already editing the file
+			end
 			vim.cmd("edit " .. path)
 		else
 			vim.notify("[[Spear]] File not found at " .. path, vim.log.levels.WARN)
